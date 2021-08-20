@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# 资源服务器前缀
+# RESOURCE_HOST=$1
+
 echo "工作区创建"
 mkdir -p /mnt/down && mkdir -p /mnt/app
 
