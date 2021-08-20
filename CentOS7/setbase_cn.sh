@@ -1,16 +1,16 @@
 #!/bin/bash
 
-echo "工作区"
+echo "工作区创建"
 mkdir -p /mnt/down && mkdir -p /mnt/app
 
 echo "安装zsh"
 yum -y install git zsh
 
 echo "更新yum库"
-sudo yum update -y
+yum update -y
 
 echo "安装基础应用"
-sudo yum install epel-release -y
+yum install epel-release -y
 yum install -y zlib zlib-devel
 yum install -y openssl openssl-devel
 yum install -y vim*
@@ -23,46 +23,42 @@ yum install -y yum-utils
 yum install -y ntfs-3g
 
 
-echo "安装cockpit"
+echo "安装配置cockpit"
 yum -y install cockpit
 systemctl enable --now cockpit.socket
 systemctl start cockpit.service
 
-
 echo "安装nodejs"
 yum install -y nodejs 
-
 
 echo "安装配置python3 环境"
 yum install python3 -y
 pip3 install virtualenv
-
 
 echo "安装supervisor"
 yum install -y supervisor
 systemctl enable supervisord
 systemctl start supervisord
 
-echo "安装docker"
-sudo yum install -y yum-utils
-sudo yum-config-manager \
+echo "安装配置docker"
+yum install -y yum-utils
+yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
-
-sudo yum install -y docker-ce docker-ce-cli containerd.io
-sudo systemctl enable docker
-sudo systemctl start docker
+yum install -y docker-ce docker-ce-cli containerd.io
+systemctl enable docker
+systemctl start docker
 
 echo "安装docker-compose"
-sudo curl -L "http://dev.kunlunwenbao.com:83/app/docker/compose/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+curl -L "http://dev.kunlunwenbao.com:83/app/docker/compose/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 
 echo "创建/mnt/app文件夹"
 mkdir -p /mnt/app
 
-echo "开启ngin"
-sudo systemctl enable nginx 
-sudo systemctl start nginx
+echo "开启Nginx"
+systemctl enable nginx 
+systemctl start nginx
 
 echo "设置防火墙"
 firewall-cmd --zone=public --permanent --add-service=http
@@ -113,3 +109,5 @@ docker image pull rabbitmq:3.8.11-management-alpine
 docker image pull docker.elastic.co/elasticsearch/elasticsearch:7.6.0
 docker image pull docker.elastic.co/logstash/logstash:7.6.0
 docker image pull docker.elastic.co/kibana/kibana:7.6.0
+
+echo "完成."
