@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "工作区创建"
 mkdir -p /mnt/down && mkdir -p /mnt/app
@@ -21,7 +21,6 @@ yum install -y lrzsz
 yum install -y net-tools
 yum install -y yum-utils
 yum install -y ntfs-3g
-
 
 echo "安装配置cockpit"
 yum -y install cockpit
@@ -74,24 +73,38 @@ firewall-cmd --list-all
 echo "更换ZSH"
 chsh -s /bin/zsh
 
-# echo "安装oh my zsh"
-# mkdir -p /mnt/down/ohmyzsh && git clone https://gitee.com/mirrors/oh-my-zsh.git /mnt/down/ohmyzsh
+echo "clone oh my zsh"
+mkdir -p /mnt/down/ohmyzsh && git clone https://gitee.com/mirrors/oh-my-zsh.git /mnt/down/ohmyzsh
 
 
-# curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/tools/install.sh -o /mnt/down/ohmyzsh/tools/install.sh
+echo "down omz install.sh"
+curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/tools/install.sh -o /mnt/down/ohmyzsh/tools/install.sh
 
-# sh /mnt/down/ohmyzsh/tools/install.sh
+echo "执行omz安装"
+sh "/mnt/down/ohmyzsh/tools/install.sh"
 
-# cd ~/.oh-my-zsh
-# git remote set-url origin https://gitee.com/mirrors/oh-my-zsh.git
-# git pull
+echo "设置更新仓库zsh"
+cd ~/.oh-my-zsh
+git remote set-url origin https://gitee.com/mirrors/oh-my-zsh.git
+git pull
 
-# git clone https://gitee.com/funnyzak/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+echo "下载omz插件"
+echo "zsh-syntax-highlighting"
+git clone https://gitee.com/funnyzak/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+echo "zsh-autosuggestions"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-# git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
-# ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+echo "spaceship"
+git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
+echo "下载zshrc"
+curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/zshrc -o ~/.zshrc
+
+echo "生效zshrc"
+source ~/.zshrc
+
 
 echo "pull docker images"
 docker image pull funnyzak/java8-nodejs-python-go-etc:latest
@@ -110,4 +123,4 @@ docker image pull docker.elastic.co/elasticsearch/elasticsearch:7.6.0
 docker image pull docker.elastic.co/logstash/logstash:7.6.0
 docker image pull docker.elastic.co/kibana/kibana:7.6.0
 
-echo "完成."
+echo "done."
