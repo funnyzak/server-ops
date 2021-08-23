@@ -13,9 +13,6 @@ yum -y install git zsh
 echo "安装nginx"
 yum -y install nginx
 
-echo "更新yum库"
-yum update -y
-
 echo "安装额外源"
 yum install epel-release -y
 
@@ -98,19 +95,18 @@ echo "zsh-syntax-highlighting"
 git clone https://gitee.com/funnyzak/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 echo "zsh-autosuggestions"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://gitee.com/funnyzak/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 echo "spaceship"
-git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+git clone https://gitee.com/funnyzak/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 
 echo "下载zshrc"
 curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/zshrc -o ~/.zshrc
 
 echo "安装docker-compose"
-sudo curl -L "http://dev.kunlunwenbao.com:83/app/docker/compose/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://kl-museum.oss-cn-beijing.aliyuncs.com/deploy/res/docker/compose/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
-
 
 echo "pull docker images"
 docker image pull funnyzak/java8-nodejs-python-go-etc:latest
@@ -132,6 +128,8 @@ docker image pull docker.elastic.co/kibana/kibana:7.6.0
 echo "生效zshrc"
 source ~/.zshrc
 
+echo "更新升级 软件包"
+yum update -y
 
 echo "更换ZSH"
 chsh -s /bin/zsh
