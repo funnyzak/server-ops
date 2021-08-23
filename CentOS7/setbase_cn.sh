@@ -61,10 +61,6 @@ yum install -y docker-ce docker-ce-cli containerd.io
 systemctl enable docker
 systemctl start docker
 
-echo "安装docker-compose"
-curl -L "https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/docker/compose/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-
 echo "创建/mnt/app文件夹"
 mkdir -p /mnt/app
 
@@ -85,7 +81,6 @@ firewall-cmd --list-all
 
 echo "clone oh my zsh"
 mkdir -p /mnt/down/ohmyzsh && git clone https://gitee.com/mirrors/oh-my-zsh.git /mnt/down/ohmyzsh
-
 
 echo "down omz install.sh"
 curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/tools/install.sh -o /mnt/down/ohmyzsh/tools/install.sh
@@ -111,6 +106,10 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 
 echo "下载zshrc"
 curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/zshrc -o ~/.zshrc
+
+echo "安装docker-compose"
+sudo curl -L "http://dev.kunlunwenbao.com:83/app/docker/compose/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 
 
 echo "pull docker images"
