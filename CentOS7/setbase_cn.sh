@@ -32,6 +32,12 @@ yum install -y net-tools
 yum install -y yum-utils
 yum install -y ntfs-3g
 
+yum install -y dnf 
+
+yum install -y telnet
+
+yum install -y tcpdump
+
 echo "安装配置cockpit"
 yum -y install cockpit
 systemctl enable --now cockpit.socket
