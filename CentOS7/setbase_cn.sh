@@ -121,7 +121,7 @@ docker image pull funnyzak/alpine-cron:latest
 docker image pull funnyzak/git-webhook:latest
 docker image pull funnyzak/git-webhook-deploy:latest
 docker image pull funnyzak/request-hub:latest
-docker image pull nginx:1.18.0
+docker image pull funnyzak/nginx:1.21.4
 docker image pull phpmyadmin/phpmyadmin:5.1.1-fpm
 docker image pull redis:6.0.9
 docker image pull mysql:5.7.27
