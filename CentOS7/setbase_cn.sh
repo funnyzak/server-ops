@@ -17,7 +17,7 @@ echo "安装额外源"
 yum install epel-release -y
 
 echo "安装基础应用"
-yum install -y nginx git zip unzip wget curl
+yum install -y nginx git zip unzip wget curl tree
 yum install -y gcc gcc-c++ kernel-devel
 yum install -y pcre pcre-devel
 
