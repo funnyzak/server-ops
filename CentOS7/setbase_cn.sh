@@ -67,6 +67,13 @@ systemctl start docker
 echo "创建/mnt/app文件夹"
 mkdir -p /mnt/app
 
+
+
+echo "向日葵安装"
+yum install -y libappindicator-gtk
+mkdir -p /mnt/down/sunloginclient && curl https://down.oray.com/sunlogin/linux/sunloginclient-11.0.0.36662.x86_64.rpm -o /mnt/down/sunloginclient/sunloginclient-11.0.0.36662.x86_64.rpm && rpm -ivh /mnt/down/sunloginclient/sunloginclient-11.0.0.36662.x86_64.rpm
+
+
 echo "开启Nginx"
 systemctl enable nginx 
 systemctl start nginx
