@@ -3,8 +3,13 @@
 # 资源服务器前缀
 # RESOURCE_HOST=$1
 
+set -x
+
 echo "工作区创建"
 mkdir -p /mnt/down && mkdir -p /mnt/app
+
+echo "更新升级 软件包"
+yum update -y
 
 echo "安装zsh"
 yum -y install git zsh
@@ -110,9 +115,6 @@ docker image pull rabbitmq:3.8.11-management-alpine
 docker image pull docker.elastic.co/elasticsearch/elasticsearch:7.6.0
 docker image pull docker.elastic.co/logstash/logstash:7.6.0
 docker image pull docker.elastic.co/kibana/kibana:7.6.0
-
-echo "更新升级 软件包"
-yum update -y
 
 echo "clone oh my zsh"
 mkdir -p /mnt/down/ohmyzsh && git clone https://gitee.com/mirrors/oh-my-zsh.git /mnt/down/ohmyzsh
