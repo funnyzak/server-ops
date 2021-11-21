@@ -67,6 +67,13 @@ systemctl start docker
 echo "创建/mnt/app文件夹"
 mkdir -p /mnt/app
 
+
+
+echo "向日葵安装"
+yum install -y libappindicator-gtk3
+mkdir -p /mnt/down/sunloginclient && curl https://down.oray.com/sunlogin/linux/sunloginclient-11.0.0.36662.x86_64.rpm -o /mnt/down/sunloginclient/sunloginclient-11.0.0.36662.x86_64.rpm && rpm -ivh /mnt/down/sunloginclient/sunloginclient-11.0.0.36662.x86_64.rpm
+
+
 echo "开启Nginx"
 systemctl enable nginx 
 systemctl start nginx
@@ -81,6 +88,31 @@ firewall-cmd --zone=public --add-port=3306/tcp --permanent
 firewall-cmd --zone=public --add-port=9090/tcp --permanent
 firewall-cmd  --reload
 firewall-cmd --list-all
+
+echo "安装docker-compose"
+sudo curl -L "https://kl-museum.oss-cn-beijing.aliyuncs.com/deploy/res/docker/compose/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
+echo "pull docker images"
+docker image pull funnyzak/java8-nodejs-python-go-etc:latest
+docker image pull funnyzak/mysql-backup:latest
+docker image pull funnyzak/alpine-cron:latest
+docker image pull funnyzak/git-webhook:latest
+docker image pull funnyzak/git-webhook-deploy:latest
+docker image pull funnyzak/request-hub:latest
+docker image pull nginx:1.21.4
+docker image pull funnyzak/nginx:1.21.4
+docker image pull phpmyadmin/phpmyadmin:5.1.1-fpm
+docker image pull redis:6.0.9
+docker image pull mysql:5.7.27
+docker image pull metabase/metabase:v0.37.2
+docker image pull rabbitmq:3.8.11-management-alpine
+docker image pull docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+docker image pull docker.elastic.co/logstash/logstash:7.6.0
+docker image pull docker.elastic.co/kibana/kibana:7.6.0
+
+echo "更新升级 软件包"
+yum update -y
 
 echo "clone oh my zsh"
 mkdir -p /mnt/down/ohmyzsh && git clone https://gitee.com/mirrors/oh-my-zsh.git /mnt/down/ohmyzsh
@@ -110,34 +142,11 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 echo "下载zshrc"
 curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/zshrc -o ~/.zshrc
 
-echo "安装docker-compose"
-sudo curl -L "https://kl-museum.oss-cn-beijing.aliyuncs.com/deploy/res/docker/compose/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-
-echo "pull docker images"
-docker image pull funnyzak/java8-nodejs-python-go-etc:latest
-docker image pull funnyzak/mysql-backup:latest
-docker image pull funnyzak/alpine-cron:latest
-docker image pull funnyzak/git-webhook:latest
-docker image pull funnyzak/git-webhook-deploy:latest
-docker image pull funnyzak/request-hub:latest
-docker image pull funnyzak/nginx:1.21.4
-docker image pull phpmyadmin/phpmyadmin:5.1.1-fpm
-docker image pull redis:6.0.9
-docker image pull mysql:5.7.27
-docker image pull metabase/metabase:v0.37.2
-docker image pull rabbitmq:3.8.11-management-alpine
-docker image pull docker.elastic.co/elasticsearch/elasticsearch:7.6.0
-docker image pull docker.elastic.co/logstash/logstash:7.6.0
-docker image pull docker.elastic.co/kibana/kibana:7.6.0
-
-echo "生效zshrc"
-source ~/.zshrc
-
-echo "更新升级 软件包"
-yum update -y
 
 echo "更换ZSH"
 chsh -s /bin/zsh
+
+echo "生效zshrc"
+source ~/.zshrc
 
 echo "done."
