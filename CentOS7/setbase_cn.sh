@@ -89,7 +89,7 @@ echo "down omz install.sh"
 curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/tools/install.sh -o /mnt/down/ohmyzsh/tools/install.sh
 
 echo "执行omz安装"
-sh "/mnt/down/ohmyzsh/tools/install.sh"
+sh /mnt/down/ohmyzsh/tools/install.sh
 
 echo "设置更新仓库zsh"
 cd ~/.oh-my-zsh
