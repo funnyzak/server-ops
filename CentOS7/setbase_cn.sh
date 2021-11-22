@@ -116,6 +116,7 @@ docker image pull docker.elastic.co/elasticsearch/elasticsearch:7.6.0
 docker image pull docker.elastic.co/logstash/logstash:7.6.0
 docker image pull docker.elastic.co/kibana/kibana:7.6.0
 
+
 echo "clone oh my zsh"
 mkdir -p /mnt/down/ohmyzsh && git clone https://gitee.com/mirrors/oh-my-zsh.git /mnt/down/ohmyzsh
 
@@ -123,7 +124,7 @@ echo "down omz install.sh"
 curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/tools/install.sh -o /mnt/down/ohmyzsh/tools/install.sh
 
 echo "执行omz安装"
-sh /mnt/down/ohmyzsh/tools/install.sh
+sh /mnt/down/ohmyzsh/tools/install.sh  --unattended
 
 echo "设置更新仓库zsh"
 cd ~/.oh-my-zsh
@@ -148,7 +149,7 @@ curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/zshrc 
 echo "更换ZSH"
 chsh -s /bin/zsh
 
-echo "生效zshrc"
-source ~/.zshrc
+# echo "生效zshrc"
+# source ~/.zshrc
 
-echo "done."
+echo "set base done."
