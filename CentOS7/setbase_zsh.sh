@@ -2,6 +2,8 @@
 #!/bin/sh
 set -x
 
+yum install -y zsh
+
 echo "clone oh my zsh"
 mkdir -p /mnt/down/ohmyzsh && git clone https://gitee.com/mirrors/oh-my-zsh.git /mnt/down/ohmyzsh
 
@@ -34,5 +36,5 @@ curl https://gitee.com/funnyzak/server-ops/raw/master/CentOS7/res/ohmyzsh/zshrc 
 echo "更换ZSH"
 chsh -s /bin/zsh
 
-# echo "生效zshrc"
-# source ~/.zshrc
+echo "生效zshrc"
+source ~/.zshrc
