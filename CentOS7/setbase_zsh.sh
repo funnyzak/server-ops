@@ -2,7 +2,7 @@
 #!/bin/sh
 set -x
 
-yum install -y zsh
+yum install -y zsh git wget
 
 echo "clone oh my zsh"
 mkdir -p /mnt/down/ohmyzsh && git clone https://gitee.com/mirrors/oh-my-zsh.git /mnt/down/ohmyzsh
