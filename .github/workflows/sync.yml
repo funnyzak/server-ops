@@ -22,4 +22,5 @@ jobs:
           dst_token: ${{ secrets.GITEE_TOKEN }}
           static_list: 'server-ops'
           force_update: true
+          clone_style: ssh
           debug: true
